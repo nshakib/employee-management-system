@@ -6,3 +6,7 @@ npm install bcrypt cors express jsonwebtoken mongoose multer nodemon path
 
 cmmd:
 node --env-file=.env userSeed.js
+
+
+git pull --rebase origin main
+git push origin main
