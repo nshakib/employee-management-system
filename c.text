@@ -1,0 +1,8 @@
+npm install react-data-table-component styled-components axios react-icons react-router-dom tailwindcss postcss autoprefixer
+
+server:
+
+npm install bcrypt cors express jsonwebtoken mongoose multer nodemon path
+
+cmmd:
+node --env-file=.env userSeed.js
