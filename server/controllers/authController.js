@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import  bcrypt  from 'bcrypt';
-import  jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 const login = async (req, res) =>{
 
@@ -35,4 +35,7 @@ const login = async (req, res) =>{
     }
 }
 
-export  { login};
+const verify = (req, res) => {
+    return res.status(200).json({success:true, user: req.user})
+};
+export  { login, verify };
