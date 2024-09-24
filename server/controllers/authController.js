@@ -35,7 +35,27 @@ const login = async (req, res) =>{
     }
 }
 
+// const verify = (req, res) => {
+//     return res.status(200).json({success:true, user: req.user})
+// };
+
+
 const verify = (req, res) => {
-    return res.status(200).json({success:true, user: req.user})
-};
+    try {
+      const user = req.user;  // This will come from the authMiddleware
+      console.log('User data from middleware:', user);  // Log user data
+  
+      if (user) {
+        return res.status(200).json({ success: true, user });
+      } else {
+        return res.status(401).json({ success: false, message: 'User not authenticated' });
+      }
+    } catch (error) {
+      console.error('Error in verify function:', error);  // Log any unexpected error
+      return res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+  };
+  
+
+
 export  { login, verify };

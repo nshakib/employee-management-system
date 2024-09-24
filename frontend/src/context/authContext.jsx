@@ -4,7 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 
 const userContext = createContext()
 
-const authContext = ({children}) =>{
+const AuthContext = ({children}) =>{
      
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -19,6 +19,7 @@ const authContext = ({children}) =>{
                             "Authorization": `Bearer ${token}`
                         }
                     })
+
                     
                 if(response.data.success){
                     setUser(response.data.user)
@@ -27,6 +28,7 @@ const authContext = ({children}) =>{
                setUser(null)
             }
             } catch (error) {
+                console.error("Error verifying user:", error);
                 if(error.response && !error.response.data.success){
                     setUser(null)
                 }
@@ -36,8 +38,9 @@ const authContext = ({children}) =>{
         }
         verifyUser()
     },[])
-    const login = (user) =>{
-        setUser(user)
+    const login = (user,token) =>{
+        setUser(user);
+        localStorage.setItem('token', token); // Save token on login
     }
 
     const logout = () =>{
@@ -51,4 +54,4 @@ const authContext = ({children}) =>{
   )
 }
 export const useAuth = () => useContext(userContext)
-export default authContext
+export default AuthContext
