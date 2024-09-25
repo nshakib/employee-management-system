@@ -26,9 +26,9 @@ const AuthContext = ({children}) =>{
                 }
             }else{
                setUser(null)
+               setLoading(false)
             }
             } catch (error) {
-                console.error("Error verifying user:", error);
                 if(error.response && !error.response.data.success){
                     setUser(null)
                 }

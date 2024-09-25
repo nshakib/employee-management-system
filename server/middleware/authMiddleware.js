@@ -26,7 +26,6 @@ const verifyUser = async (req, res, next) => {
         next()
 
     } catch (error) {
-        console.error('Error in verify route:', error);  // Log any errors
         return res.status(500).json({success: false, error: "Server Error"})
     }
 }
