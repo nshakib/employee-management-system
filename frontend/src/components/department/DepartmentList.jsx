@@ -8,6 +8,13 @@ const DepartmentList = () => {
 
   const [departments, setDepartments] = useState([]);
   const [depLoading, setDepLoading] = useState(false);
+  
+
+  const onDepartmentdelete =  (id) => {
+    const data = departments.filter(dep => dep._id !== id);
+    console.log('After delete:', data);
+    setDepartments(data);
+  }
 
   useEffect(()=>{
     const fetchDepartments = async() => {
@@ -15,7 +22,7 @@ const DepartmentList = () => {
       try {
         const response = await axios.get("http://localhost:5001/api/department",{
           headers:{
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            Authorization: `Bearer ${localStorage.getItem('token')}`
           }
         })
 
@@ -26,7 +33,7 @@ const DepartmentList = () => {
               _id: dep._id,
               sno: sno++,
               dep_name: dep.dep_name,
-              action: (<DepartmentButtons />)
+              action: (<DepartmentButtons Id={dep._id} onDepartmentdelete={onDepartmentdelete} />)
 
             }
           ))
@@ -63,11 +70,15 @@ const DepartmentList = () => {
               Add New Department
             </Link>
         </div>
-        <div>
-          <DataTable
-              columns={columns}
-              data={departments}
-           />
+        <div className='mt-5'>
+        {departments.length === 0 ? (
+              <div>There are no records to display.</div> // Show this when no departments
+            ) : (
+              <DataTable
+                columns={columns}
+                data={departments}
+              />
+            )}
         </div>
     </div>
     }</>
