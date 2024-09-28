@@ -15,7 +15,7 @@ export const columns = [
 
 export const DepartmentButtons = () =>{
       return(
-            <div>
+            <div className="flex space-x-3">
                   <button>Edit</button>
                   <button>Delete</button>
             </div>
