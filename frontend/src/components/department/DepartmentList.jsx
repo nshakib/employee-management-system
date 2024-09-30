@@ -8,6 +8,7 @@ const DepartmentList = () => {
 
   const [departments, setDepartments] = useState([]);
   const [depLoading, setDepLoading] = useState(false);
+  const [filteredDepartments, setFilteredDepartments] = useState([])
   
 
   const onDepartmentdelete =  (id) => {
@@ -36,8 +37,9 @@ const DepartmentList = () => {
               action: (<DepartmentButtons Id={dep._id} onDepartmentdelete={onDepartmentdelete} />)
 
             }
-          ))
+          ));
           setDepartments(data)
+          setFilteredDepartments(data)
         }
       } catch (error) {
         if(error.response && !error.response.data.success)
@@ -50,6 +52,13 @@ const DepartmentList = () => {
     }
     fetchDepartments();
   },[])
+
+  const filterDepartments = (e) => {
+    const records = departments.filter((dep)=>dep.dep_name.toLowerCase().includes(e.target.value.toLowerCase()))
+    setFilteredDepartments(records);
+
+  }
+
   return (
     <>
     {depLoading ? <div>Loading ....</div>:
@@ -63,6 +72,7 @@ const DepartmentList = () => {
             type="text" 
             placeholder='Search by department Name' 
             className='px-4 py-0.5 border' 
+            onChange={filterDepartments}
             />
             <Link 
               to="/admin-dashboard/add-department" 
@@ -76,7 +86,8 @@ const DepartmentList = () => {
             ) : (
               <DataTable
                 columns={columns}
-                data={departments}
+                data={filteredDepartments}
+                pagination
               />
             )}
         </div>

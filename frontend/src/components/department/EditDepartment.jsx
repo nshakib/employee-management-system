@@ -100,7 +100,7 @@ const EditDepartment = () => {
           <button 
           type='submit'
           className='w-full mt-6 bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 rounded'
-          >Edit Department</button>
+          >Update Department</button>
         </div>
       </form>
     </div>

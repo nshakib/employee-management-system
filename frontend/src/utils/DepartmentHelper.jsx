@@ -8,7 +8,8 @@ export const columns = [
       },
       {
             name: "Department Name",
-            selector:(row) =>row.dep_name
+            selector:(row) =>row.dep_name,
+            sortable: true,
       },
       {
             name: "Action",
@@ -35,6 +36,9 @@ export const DepartmentButtons = ({Id, onDepartmentdelete}) =>{
                   if (response.data.success){
                         onDepartmentdelete(id);
                   }
+                  else {
+                        alert("Failed to delete department.");
+                      }
             } catch (error) {
                   if(error.response && !error.response.data.success)
                     {
