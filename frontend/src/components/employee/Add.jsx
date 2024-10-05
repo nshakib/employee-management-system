@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { fetchDepartments } from '../../utils/EmployeeHelper'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from "react-router-dom"
 
 const Add = () => {
       const [departments, setDepartments] = useState([])
       const [formData, setFormData] = useState({})
-
       const navigate = useNavigate();
+
 
       useEffect(() => {
             const getDepartments = async () =>{
@@ -21,7 +21,7 @@ const Add = () => {
 
       const handleChange = (e)=>{
             const {name, value, files} = e.target
-            if(name=="images"){
+            if(name=="image"){
                   setFormData((prevData) => ({...prevData, [name]:files[0]}))
             }else{
                   setFormData((prevData) => ({...prevData, [name]:value})) 
@@ -34,19 +34,18 @@ const Add = () => {
             const formDataObj = new FormData();
 
             Object.keys(formData).forEach((key) => {
-                  formDataObj.append(key, formData[key]);
+                  formDataObj.append(key, formData[key])
             })
 
             try {
-                  const response = await axios.get("http://localhost:5001/api/employee/add",{
-                    formDataObj,
+                  const response = await axios.post("http://localhost:5001/api/employee/add",formDataObj,{
                         headers:{
-                      Authorization: `Bearer ${localStorage.getItem('token')}`
-                    }
-                  })
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        },
+                  });
           
                   if (response.data.success){
-                    navigate = ("/admin-dashboard/employees")
+                    navigate("/admin-dashboard/employees")
                   }
           
                 } catch (error) {
@@ -136,7 +135,7 @@ const Add = () => {
                         className='mt-1 p-2 block w-full border border-gray-300 rounded-md'
                         required >
 
-                        <option value="">Select Gender</option>
+                        <option value="">Select Status</option>
                         <option value="single">Single</option>
                         <option value="married">Married</option>
                         </select>
