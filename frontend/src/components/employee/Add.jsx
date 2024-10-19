@@ -22,9 +22,9 @@ const Add = () => {
       const handleChange = (e)=>{
             const {name, value, files} = e.target
             if(name=="image"){
-                  setFormData((prevData) => ({...prevData, [name]:files[0]}))
+                  setFormData((prevData) => ({...prevData, [name]:files[0]}));
             }else{
-                  setFormData((prevData) => ({...prevData, [name]:value})) 
+                  setFormData((prevData) => ({...prevData, [name]:value}));
             }
       }
 
@@ -37,12 +37,18 @@ const Add = () => {
                   formDataObj.append(key, formData[key])
             })
 
+            // Debug: Log all form data before submitting
+  for (let [key, value] of formDataObj.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+
             try {
                   const response = await axios.post("http://localhost:5001/api/employee/add",formDataObj,{
                         headers:{
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        'Content-Type': 'multipart/form-data',
                         },
-                  });
+                  })
           
                   if (response.data.success){
                     navigate("/admin-dashboard/employees")

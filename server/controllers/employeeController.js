@@ -31,6 +31,7 @@ const addEmployee = async (req, res) => {
                   password,
                   role,
             } = req.body;
+            console.log(req.body);
       
             const user = await User.findOne({ email})
             if(user){
@@ -44,7 +45,7 @@ const addEmployee = async (req, res) => {
                   email,
                   password: hashPassword,
                   role,
-                  profileImage: req.file? request.file.filename : ""
+                  profileImage: req.file? req.file.filename : ""
             })
       
             const savedUser = await newUser.save();
@@ -68,4 +69,24 @@ const addEmployee = async (req, res) => {
       
 }
 
-export {addEmployee,upload}
+const getEmployees = async (req, res) => {
+      try {
+            const employees = await Employee.find().populate('userId', 'name');
+            return res.status(200).json({success: true,employees})
+
+      } catch (error) {
+            res.status(500).json({error: error, message: "Get employee server error"});
+      }
+}
+
+const editEmployee = async (req, res) => {
+      try {
+          const {id} = req.params;
+          const department = await Department.findById({_id:id});
+          return res.status(200).json({success: true, department})
+      } catch (error) {
+          return res.status(500).json({success:false, error: "edit department server error",});
+      }
+  }
+
+export {addEmployee,upload, getEmployees, editEmployee}
