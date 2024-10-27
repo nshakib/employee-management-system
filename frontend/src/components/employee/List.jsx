@@ -27,8 +27,10 @@ const List = () => {
               _id: emp._id,
               sno: sno++,
               name: emp.userId.name,         // Use proper employee fields
-              department: emp.department,
+              department: emp.department.dep_name,
               designation: emp.designation,
+              dob: new Date(emp.dob).toDateString(),
+              profileImage: <img  width={40} src={`http://localhost:5001/${emp.userId.profileImage}`} alt="" />,
               action: (<EmployeeButtons Id={emp._id} />)
               
 

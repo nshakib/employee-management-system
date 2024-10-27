@@ -12,6 +12,20 @@ export const columns = [
         sortable: true,
   },
   {
+        name: "Department Name",
+        selector:(row) =>row.dep_name,
+        sortable: true,
+  },
+  {
+        name: "DOB",
+        selector:(row) =>row.dob,
+        sortable: true,
+  },
+  {
+    name: "Image",
+    selector:(row) =>row.profileImage,
+  },
+  {
         name: "Action",
         selector:(row) =>row.action
   },
